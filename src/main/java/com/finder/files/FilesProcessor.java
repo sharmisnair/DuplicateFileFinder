@@ -9,13 +9,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class FilesProcessor implements FileProcessing {
+public abstract class FilesProcessor {
 
   Checksum checksum;
   String parentDirPath;
   String sourcePath;
   HashMap<String, ArrayList<String>> hashedFileMap;
   public abstract String getFileExt();
+  public abstract void processFiles(String sourcePath) throws IOException, FilesProcessorException;
 
   public FilesProcessor(Checksum checksum) {
     reset();
@@ -53,7 +54,6 @@ public abstract class FilesProcessor implements FileProcessing {
    * @param is InputStream object
    * @throws IOException
    */
-  @Override
   public void processInputStreamForFile(String fileName, InputStream is)
       throws IOException {
     int FILE_BLOCK_SIZE = 4096;
@@ -69,7 +69,6 @@ public abstract class FilesProcessor implements FileProcessing {
    * Quietly close open InputStream
    * @param is InputStream
    */
-  @Override
   public void closeInputStream(InputStream is) {
     if (is != null) {
       try {

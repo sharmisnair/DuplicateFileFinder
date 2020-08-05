@@ -28,21 +28,21 @@ public class ZipFilesProcessor extends FilesProcessor {
    * Process all files within given source Zip And calls processInputStreamForFile on each file
    * entry which calculates checksum for file and adds to hashmap
    *
-   * @param sourceZipPath
+   * @param sourcePath
    * @throws IOException
    * @throws FilesProcessorException
    */
   @Override
-  public void processFiles(String sourceZipPath)
+  public void processFiles(String sourcePath)
       throws IOException, FilesProcessorException {
     FileInputStream fis = null;
     ZipInputStream zis = null;
     ZipEntry zipEntry = null;
 
-    checkAndSetFilePaths(sourceZipPath);
+    checkAndSetFilePaths(sourcePath);
 
     try {
-      fis = new FileInputStream(sourceZipPath);
+      fis = new FileInputStream(sourcePath);
       zis = new ZipInputStream(fis);
       zipEntry = zis.getNextEntry();
 
