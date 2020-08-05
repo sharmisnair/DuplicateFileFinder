@@ -43,10 +43,10 @@ By default, if no input is given, [the default file provided](src/main/resources
 ### Implementation and key design decisions
 
 * **FilesProcessor** abstract class represents a generic files processor that stores a hashmap (of checksum of file contents and list of filenames matching the checksum)
-* **FileProcessing** is an interface of file operations that is implemented by _FilesProcessor_
   * **ZipFilesProcessor** is a concrete implementation of _FilesProcessor_ and implements Zip specific processing of unpacking given zip folder in _processFiles_. Also contains special zip file specfic validations in _checkZipFileEntry_.
   * If this program needs to support new file formats, say .tar then a new class should be created, say TarFilesProcessor, that will extend from _FilesProcessor_
-* **FilesProcessorFactory** class helps create concrete _FileProcessor_ objects based on input file (i.e, if the input is a ".zip" file, it would initialize **ZipFilesProcessor**). This was designed this way to keep it easily extensible for other file extensions later on and the **DuplicateFileFinder** class does not need to be aware of specific file type classes.
+* **FilesProcessorFactory** class helps create concrete _FileProcessor_ objects based on input file (i.e, if the input is a ".zip" file, it would initialize 
+**ZipFilesProcessor**). This was designed this way to keep it easily extensible for other file extensions later on and the **DuplicateFileFinder** class does not need to be aware of specific file type classes.
 * **Checksum** class helps calculate hash checksum of given bytes. 
   * For different files with same contents, the checksum will be the same for the file contents. This is used to help identify duplicate file contents.
   * _FilesProcessor_ class takes in a **Checksum** object as input to calculate the checksum value during processing of each file entry and stores it in _hashedFileMap_ hashmap.
