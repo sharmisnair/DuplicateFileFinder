@@ -49,11 +49,11 @@ public class FilesProcessorFactoryTest {
     FilesProcessorFactory factory = new FilesProcessorFactory();
     assertThatExceptionOfType(FilesProcessorException.class)
         .isThrownBy(() -> factory.getFileProcessorByType("", checksum))
-        .withMessage("Given file in unsupported format");
+        .withMessageStartingWith("Given file in unsupported format");
 
     assertThatExceptionOfType(FilesProcessorException.class)
         .isThrownBy(() -> factory.getFileProcessorByType("tar", checksum))
-        .withMessage("Given file in unsupported format");
+        .withMessageStartingWith("Given file in unsupported format");
   }
 
 }

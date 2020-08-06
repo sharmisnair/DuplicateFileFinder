@@ -42,12 +42,12 @@ public class ZipFilesProcessorTest {
     String sourcePath1 = "src/test/resources/3DupsAnd1File";
     assertThatExceptionOfType(FilesProcessorException.class)
         .isThrownBy(() -> filesProcessor.processFiles(sourcePath1))
-        .withMessage("Given file in unsupported format");
+        .withMessageStartingWith("Given file in unsupported format");
 
     String sourcePath2 = "src/test/resources/3DupsAnd1File.tar";
     assertThatExceptionOfType(FilesProcessorException.class)
         .isThrownBy(() -> filesProcessor.processFiles(sourcePath2))
-        .withMessage("Given file in unsupported format");
+        .withMessageStartingWith("Given file in unsupported format");
 
   }
 
@@ -82,12 +82,12 @@ public class ZipFilesProcessorTest {
     // fileEntryName navigating outside given zip target directory
     assertThatExceptionOfType(FilesProcessorException.class)
         .isThrownBy(() -> filesProcessor.checkZipFileEntry(fileEntryName1))
-        .withMessage("File entry is outside of the target dir causing potential zipslip vulnerability");
+        .withMessageStartingWith("File entry is outside of the target dir causing potential zipslip vulnerability");
 
     String fileEntryName2 = "3DupsAnd1File/../../../../../evil.sh";
     // fileEntryName navigating outside given zip target directory
     assertThatExceptionOfType(FilesProcessorException.class)
         .isThrownBy(() -> filesProcessor.checkZipFileEntry(fileEntryName2))
-        .withMessage("File entry is outside of the target dir causing potential zipslip vulnerability");
+        .withMessageStartingWith("File entry is outside of the target dir causing potential zipslip vulnerability");
   }
 }

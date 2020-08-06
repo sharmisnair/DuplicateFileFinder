@@ -10,7 +10,7 @@ public class FilesProcessorFactory {
     if (format != null && format.equals("ZIP")) {
       return new ZipFilesProcessor(checksum);
     }
-    throw new FilesProcessorException(FilesProcessorErrCode.UNSUPPORTED_FILE_FORMAT);
+    throw new FilesProcessorException(FilesProcessorErrCode.UNSUPPORTED_FILE_FORMAT, format);
   }
 
   public String getFileType(String sourcePath) {

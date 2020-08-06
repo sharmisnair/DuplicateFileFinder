@@ -14,8 +14,7 @@ public class Checksum {
     try {
       digest = MessageDigest.getInstance(checksumType);
     } catch (NoSuchAlgorithmException e) {
-      System.err.println("checksumType= "+ checksumType);
-      throw new FilesProcessorException(FilesProcessorErrCode.NO_CHECKSUM_TYPE);
+      throw new FilesProcessorException(FilesProcessorErrCode.NO_CHECKSUM_TYPE, checksumType);
     }
   }
 

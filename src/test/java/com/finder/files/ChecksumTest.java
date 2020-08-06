@@ -13,7 +13,7 @@ public class ChecksumTest {
   public void Checksum_invalidChecksum() {
     assertThatExceptionOfType(FilesProcessorException.class)
         .isThrownBy(() -> new Checksum("random"))
-        .withMessage("Invalid Checksum algorithm used");
+        .withMessageStartingWith("Invalid Checksum algorithm used");
   }
 
   @Test

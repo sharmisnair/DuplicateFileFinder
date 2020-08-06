@@ -104,7 +104,7 @@ public class ZipFilesProcessor extends FilesProcessor {
 
     // Check for zip slip vulnerability
     if (!isFileInOriginalDirPath(fileName)) {
-      throw new FilesProcessorException(FilesProcessorErrCode.FILE_NOT_IN_TARGET_DIR);
+      throw new FilesProcessorException(FilesProcessorErrCode.FILE_NOT_IN_TARGET_DIR, fileName);
     }
   }
 

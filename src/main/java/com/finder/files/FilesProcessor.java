@@ -41,7 +41,7 @@ public abstract class FilesProcessor {
   public void checkAndSetFilePaths(String sourcePath) throws IOException, FilesProcessorException {
     String canonicalSourcePath = getCanonicalFilePath(sourcePath);
     if (!isValidFileFormat(canonicalSourcePath)) {
-      throw new FilesProcessorException(FilesProcessorErrCode.UNSUPPORTED_FILE_FORMAT);
+      throw new FilesProcessorException(FilesProcessorErrCode.UNSUPPORTED_FILE_FORMAT, canonicalSourcePath);
     }
     setSourcePath(getCanonicalFilePath(canonicalSourcePath));
     setParentDirPath(getCanonicalParentPath(canonicalSourcePath));

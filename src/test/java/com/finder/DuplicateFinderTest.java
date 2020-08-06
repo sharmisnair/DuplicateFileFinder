@@ -42,6 +42,6 @@ public class DuplicateFinderTest {
     String compressedFilePath = "src/test/resources/3DupsAnd1File.tar";
     assertThatExceptionOfType(FilesProcessorException.class)
         .isThrownBy(() -> new DuplicateFinder(compressedFilePath))
-        .withMessage("Given file in unsupported format");
+        .withMessageStartingWith("Given file in unsupported format");
   }
 }
