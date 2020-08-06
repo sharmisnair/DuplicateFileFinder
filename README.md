@@ -47,9 +47,13 @@ By default, if no input is given, [the default file provided](src/main/resources
   * If this program needs to support new file formats, say .tar then a new class should be created, say TarFilesProcessor, that will extend from _FilesProcessor_
 * **FilesProcessorFactory** class helps create concrete _FileProcessor_ objects based on input file (i.e, if the input is a ".zip" file, it would initialize 
 **ZipFilesProcessor**). This was designed this way to keep it easily extensible for other file extensions later on and the **DuplicateFileFinder** class does not need to be aware of specific file type classes.
-* **Checksum** class helps calculate hash checksum of given bytes. 
-  * For different files with same contents, the checksum will be the same for the file contents. This is used to help identify duplicate file contents.
-  * _FilesProcessor_ class takes in a **Checksum** object as input to calculate the checksum value during processing of each file entry and stores it in _hashedFileMap_ hashmap.
+* **Checksum** class helps calculate hash checksum of given data in bytes using given algorithm (like SHA-256 for example which is used in the program). 
+  * For different files with same contents, the checksum will be the same. This is used to help identify duplicate file contents irrespective of file names or extensions being different. This technique helps identifies duplicates of files regardless of the file type (ie. photos or text files etc).
+  * _FilesProcessor_ class takes in a **Checksum** object as input to calculate the checksum value during processing of each file entry and stores it in _hashedFileMap_ hashmap (which maps a given checksum to the list of all files with the same checksum).
 * **DuplicateFileFinder** class is the entry point and core program that takes in the source file path as input and identifies duplicate files
   * Initialises SHA-256 _Checksum_ object and creates a new **FilesProcessor** object based on input file type (using **FilesProcessorFactory**)
   * Filters the hashmap from _FilesProcessor_ to filter and display duplicate files (if there is more than one file for a given checksum, they are duplicates).
+* Handling large files at scale:
+  * The given files are extracted on the go but not written to disk as write is an expensive operation and can be avoided by doing controlled in-memory operations.
+  * Each file is not fully loaded into the memory as file may be too large above system's in-memory constraints - therefore only upto 4KB block of file is loaded at a time and checksum of the entire file contents is calculated on the go.
+  * _hashedFileMap_ stored in _FilesProcessor_ stores only the checksum and the list of all replicate files matching the checksum (regardless of number of files).
